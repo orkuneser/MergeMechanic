@@ -10,23 +10,14 @@ public class ItemMergeController : MonoBehaviour
     private ItemPositionController _itemPositionController;
     private ItemPositionController ItemPositionController => _itemPositionController == null ? _itemPositionController = GetComponent<ItemPositionController>() : _itemPositionController;
 
-    private void OnMouseUp()
-    {
-        if (ItemPositionController.navigateTransform == ItemPositionController.currentTransform)
-            return;
-
-        Item otherItem = ItemPositionController.navigateTransform.GetComponent<Tile>().tileItem;
-        if (otherItem != null && !otherItem.isAvailable)
-        {
-            MergeControl(otherItem);
-        }
-    }
-
     public void MergeControl(Item otherItem)
     {
-        if (otherItem.itemData.itemID == Item.itemData.itemID)
+        if (otherItem.itemData.itemID == Item.itemData.itemID && !Item.itemData.lastItem)
         {
-            ItemSpawnController.Instance.MergeSpawner(otherItem.gameObject, Item.gameObject, otherItem.GetComponent<ItemPositionController>().currentTransform.GetComponent<Tile>(), Item.itemData.itemID);
+            if (otherItem.GetComponent<ItemPositionController>().currentTransform.GetComponent<Tile>() && otherItem.GetInstanceID() != Item.GetInstanceID())
+            {
+                ItemSpawnController.Instance.MergeSpawner(otherItem.gameObject, Item.gameObject, otherItem.GetComponent<ItemPositionController>().currentTransform.gameObject, Item.itemData.itemID);
+            }
         }
     }
 }

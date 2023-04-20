@@ -6,4 +6,5 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public int itemID;
+    public bool lastItem;
 }

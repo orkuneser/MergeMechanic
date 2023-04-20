@@ -7,17 +7,18 @@ public class ItemRayController : MonoBehaviour
     private ItemPositionController _itemPositionController;
     private ItemPositionController ItemPositionController => _itemPositionController == null ? _itemPositionController = GetComponent<ItemPositionController>() : _itemPositionController;
 
+    private float _tileRayLenght = 10;
+
     private void OnMouseDrag()
     {
-        RayTileControl();
+        TileCheck();
     }
 
-    public void RayTileControl()
+    private void TileCheck()
     {
-        float maxDistance = 10f;
         RaycastHit hit;
 
-        bool isHit = Physics.SphereCast(transform.position, transform.lossyScale.x / 2, Vector3.down, out hit, maxDistance);
+        bool isHit = Physics.SphereCast(transform.position, transform.lossyScale.x / 2, Vector3.down, out hit, _tileRayLenght);
 
         if (isHit)
         {
@@ -43,10 +44,9 @@ public class ItemRayController : MonoBehaviour
     #region RAY DRAW GIZMOS
     private void OnDrawGizmos()
     {
-        float maxDistance = 10f;
         RaycastHit hit;
 
-        bool isHit = Physics.SphereCast(transform.position, transform.lossyScale.x / 2, Vector3.down, out hit, maxDistance);
+        bool isHit = Physics.SphereCast(transform.position, transform.lossyScale.x / 2, Vector3.down, out hit, _tileRayLenght);
 
         if (isHit)
         {
@@ -57,7 +57,7 @@ public class ItemRayController : MonoBehaviour
         else
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, Vector3.down * maxDistance);
+            Gizmos.DrawRay(transform.position, Vector3.down * _tileRayLenght);
         }
     }
     #endregion

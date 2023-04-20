@@ -28,7 +28,7 @@ public class ItemSpawnController : Singleton<ItemSpawnController>
         TileController.Instance.CheckFully();
     }
 
-    public void MergeSpawner(GameObject item1, GameObject item2, Tile tile, int itemID)
+    public void MergeSpawner(GameObject item1, GameObject item2, GameObject tile, int itemID)
     {
         item1.GetComponent<ItemPositionController>().currentTransform.GetComponent<Tile>().tileItem = null;
         item1.GetComponent<ItemPositionController>().currentTransform.GetComponent<Tile>().IsOccupied = false;
@@ -44,8 +44,8 @@ public class ItemSpawnController : Singleton<ItemSpawnController>
 
         newItem.GetComponent<ItemScaleController>().ScaleTween(Vector3.zero, new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
 
-        tile.tileItem = newItem.GetComponent<Item>();
-        tile.IsOccupied = true;
+        tile.GetComponent<Tile>().tileItem = newItem.GetComponent<Item>();
+        tile.GetComponent<Tile>().IsOccupied = true;
 
         Destroy(item1);
         Destroy(item2);

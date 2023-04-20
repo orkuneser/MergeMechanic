@@ -22,4 +22,10 @@ public class ItemPositionController : MonoBehaviour
 
         oldTransform = currentTransform;
     }
+
+    public void ChangeAllTransforms(Transform newCurrentTransform, Transform newNavigateTransform)
+    {
+        currentTransform = newCurrentTransform;
+        navigateTransform = newNavigateTransform;
+    }
 }
